@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     int secret = new Random().nextInt(10)+1;
     String TAG = MainActivity.class.getSimpleName();
     private EditText edNumber;
-
+    private ImageView result;
 
 
     @Override
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         edNumber = findViewById(R.id.num);
         message = findViewById(R.id.message);
+        result = findViewById(R.id.result);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +74,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void guess(View view){
         int number = Integer.parseInt(edNumber.getText().toString());
+        result.setVisibility(View.VISIBLE);
         if(number <secret){
             message.setText("Bigger");
         }else if(number >secret){
             message.setText("Small");
         }else{
             message.setText("Bingo!");
+            result.setImageResource(R.drawable.shock);
         }
+        edNumber.setText("");
 
     }
 }

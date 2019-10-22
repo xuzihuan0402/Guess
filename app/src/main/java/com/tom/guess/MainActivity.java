@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     int secret = new Random().nextInt(10)+1;
     String TAG = MainActivity.class.getSimpleName();
     private EditText num;
-    private int number;
+
 
 
     @Override
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void guess(View view){
-        number = Integer.parseInt(num.getText().toString());
+        int number = Integer.parseInt(num.getText().toString());
         if(number <secret){
             message.setText("Bigger");
         }else if(number >secret){

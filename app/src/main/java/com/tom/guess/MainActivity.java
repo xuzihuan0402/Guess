@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG,"secret"+secret);
-        edNumber = findViewById(R.id.ConstraintLayout);
+        edNumber = findViewById(R.id.num);
         message = findViewById(R.id.message);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

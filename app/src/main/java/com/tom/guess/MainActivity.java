@@ -22,19 +22,21 @@ public class MainActivity extends AppCompatActivity {
     private TextView message;
     int secret = new Random().nextInt(10)+1;
     String TAG = MainActivity.class.getSimpleName();
-    private EditText edNumber;
+    private EditText num;
+    private int number;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG,"secret"+secret);
-        edNumber = findViewById(R.id.num);
-        message = findViewById(R.id.message);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        num = findViewById(R.id.num);
+        message = findViewById(R.id.message);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void guess(View view){
-        int number = Integer.parseInt(edNumber.getText().toString());
-        if(number<secret){
+        number = Integer.parseInt(num.getText().toString());
+        if(number <secret){
             message.setText("Bigger");
-        }else if(number>secret){
+        }else if(number >secret){
             message.setText("Small");
         }else{
             message.setText("Bingo!");

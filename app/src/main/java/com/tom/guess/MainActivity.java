@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView message;
     int secret = new Random().nextInt(10)+1;
     String TAG = MainActivity.class.getSimpleName();
-    private EditText num;
+    private EditText edNumber;
 
 
 
@@ -35,14 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        num = findViewById(R.id.num);
+        edNumber = findViewById(R.id.num);
         message = findViewById(R.id.message);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                MainActivity.this.finish();
             }
         });
     }
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void guess(View view){
-        int number = Integer.parseInt(num.getText().toString());
+        int number = Integer.parseInt(edNumber.getText().toString());
         if(number <secret){
             message.setText("Bigger");
         }else if(number >secret){

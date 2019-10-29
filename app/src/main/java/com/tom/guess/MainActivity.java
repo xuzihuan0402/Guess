@@ -1,10 +1,12 @@
 package com.tom.guess;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,17 +23,16 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private TextView message;
-    int secret = new Random().nextInt(10)+1;
+    int secret;
+    int counter;
     String TAG = MainActivity.class.getSimpleName();
     private EditText edNumber;
     private ImageView result;
+    private TextView edCounter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG,"secret"+secret);
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -39,13 +40,24 @@ public class MainActivity extends AppCompatActivity {
         edNumber = findViewById(R.id.num);
         message = findViewById(R.id.message);
         result = findViewById(R.id.result);
+        edCounter = findViewById(R.id.counter);
+        edCounter.setText(counter+"");
+        reset();
+        Log.d(TAG,"secret"+secret);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.this.finish();
+                reset();
+                Log.d(TAG,"secret"+secret);
             }
         });
+    }
+
+    public void reset(){
+        secret=new Random().nextInt(10)+1;
+        counter=0;
+        edCounter.setText(counter+"");
     }
 
     @Override
@@ -75,15 +87,30 @@ public class MainActivity extends AppCompatActivity {
     public void guess(View view){
         int number = Integer.parseInt(edNumber.getText().toString());
         result.setVisibility(View.VISIBLE);
+        counter++;
+        edCounter.setText(counter+"");
+        DialogInterface.OnClickListener listener=new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                reset();
+            }
+        };
+        String message = "Bingo";
         if(number <secret){
-            message.setText("Bigger");
+            //message.setText("Bigger");
+            message="Bigger";
+            listener=null;
         }else if(number >secret){
-            message.setText("Small");
-        }else{
-            message.setText("Bingo!");
-            result.setImageResource(R.drawable.shock);
+            //message.setText("Small");
+            message="Smaller";
+            listener=null;
         }
-        edNumber.setText("");
-
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("haha")
+                    .setMessage(message)
+                    .setPositiveButton("OK", listener)
+                    .show();
     }
+
+
 }
